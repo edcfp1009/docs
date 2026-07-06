@@ -1,0 +1,65 @@
+---
+title: "Troubleshooting"
+description: "Common issues with the FreightPOP MCP Server and how to fix them."
+---
+
+## My AI client won't connect
+
+Most connection failures fall into two buckets:
+
+**Expired session or token**
+
+- Symptom: you were connected before, but requests now fail with an authentication or 401 error.
+- Fix: your AI client should re-open the FreightPOP login popup automatically. If it doesn't, remove the FreightPOP connector from your AI client settings and re-add it using the connector URL from your [client setup guide](/clients/claude-desktop).
+
+**Wrong connector URL**
+
+- Symptom: the client shows "connector unreachable" or a 404 during setup.
+- Fix: double-check the URL matches exactly what's shown in the setup guide for your client. Copy-paste rather than typing it.
+
+## My request was rejected
+
+The server validates every input before making a call. Requests are rejected when required fields are missing or values are outside allowed ranges.
+
+Common examples:
+
+| Error | Cause | Fix |
+| --- | --- | --- |
+| `Invalid ZIP/postal code` | Origin or destination ZIP is malformed or unknown. | Verify the ZIP with the customer and retry. |
+| `Weight must be greater than 0` | Weight submitted as `0` or a negative value. | Provide a positive weight in pounds. |
+| `Freight class is required for LTL` | An LTL quote was requested without a class. | Add the freight class (e.g. `class 70`). |
+| `Origin and destination are required` | One of the addresses was missing. | Re-issue the prompt with both addresses. |
+
+If your AI client shows a raw validation message, read it carefully — it names the field that failed. Correct that field and try again.
+
+## I think I created a duplicate order
+
+`create_order` is **idempotent by order number**. This means:
+
+- If you resubmit the exact same order (same order number, same content), FreightPOP recognizes the duplicate and will **not** create a second order.
+- If you resubmit the same order number with **different** content, FreightPOP returns an error instead of overwriting the existing order.
+
+To confirm what actually happened, ask the AI client:
+
+> _"Look up order number SO-1042 in FreightPOP."_
+
+Or open the FreightPOP web app and search for the order number. You'll see either one order or an error — never two conflicting versions.
+
+See [`create_order`](/tools/orders) for full details.
+
+## The tool timed out
+
+Occasionally a tool call fails with a timeout — usually because a downstream carrier or system was slow to respond.
+
+- If the error response includes **`retryable: true`**, the call is safe to try again. Ask the AI client to retry the same request.
+- If it says **`retryable: false`**, wait a minute and try again, or use the FreightPOP web app to complete the action.
+- For repeated timeouts on the same tool, [contact support](/support).
+
+## Something else
+
+If your issue isn't covered here, [contact support](/support) with:
+
+- The name of your AI client (Claude Desktop, Claude.ai, ChatGPT)
+- The prompt you used
+- The exact error message shown by the AI client
+- Approximate time of the request

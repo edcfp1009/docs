@@ -1,0 +1,24 @@
+---
+title: "Orders"
+description: "Import orders into FreightPOP."
+---
+
+## `create_order`
+
+Imports an order into your FreightPOP account.
+
+- **Type:** Write
+- **Example prompt:** _"Create an order for Acme Corp, order number SO-1042, shipping from our LA warehouse to their Dallas dock."_
+
+### Idempotency behavior
+
+`create_order` is **idempotent by order number**:
+
+- **Same order number \+ identical content** → safe. The server recognizes the duplicate and does not create a second order.
+- **Same order number \+ different content** → the server returns an error instead of overwriting the existing order. This protects you from silently corrupting a live order.
+
+If you need to change an existing order, modify it in the FreightPOP web app rather than resubmitting via the AI client.
+
+<Tip>
+  Worried you accidentally created a duplicate? See ["I think I created a duplicate order"](/troubleshooting#i-think-i-created-a-duplicate-order) in Troubleshooting.
+</Tip>

@@ -1,0 +1,21 @@
+---
+title: "Quoting"
+description: "Compare rates and available carriers."
+---
+
+All quoting tools are **read-only**. Requesting a quote does not book a shipment or incur charges.
+
+## `get_rate_quotes`
+
+Returns rate quotes from available carriers based on origin, destination, weight, freight class, and other shipment details.
+
+- **Type:** Read-only
+- **Does not book a shipment.** To book, use [`create_shipment`](/tools/shipping).
+- **Example prompt:** _"Get me rate quotes from Mission Viejo, CA to Dallas, TX, 500 lbs, class 70."_
+
+## `get_carriers`
+
+Returns the list of carriers available to your FreightPOP company account.
+
+- **Type:** Read-only
+- **Example prompt:** _"Which carriers do we have set up in FreightPOP?"_

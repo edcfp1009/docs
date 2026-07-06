@@ -1,0 +1,40 @@
+---
+title: "Claude.ai (Web)"
+description: "Connect FreightPOP to Claude.ai via Claude Connectors."
+---
+
+Set up the FreightPOP MCP Server as a connector in the web version of Claude at [claude.ai](https://claude.ai).
+
+## Prerequisites
+
+- A Claude.ai account with Connectors enabled
+- An active FreightPOP account
+
+## Setup
+
+<Steps>
+  <Step title="Open Claude Connectors">
+    Go to [claude.ai](https://claude.ai) and open **Settings → Connectors** (or visit the Connectors page directly from your profile menu).
+
+    <Frame>
+      ![Claude.ai connectors page](/images/placeholder-claude-web-connectors.png)
+    </Frame>
+  </Step>
+  <Step title="Add the FreightPOP connector">
+    Click **Add connector** and paste the FreightPOP connector URL:
+
+    ```text
+    https://mcp.freightpop.com
+    ```
+  </Step>
+  <Step title="Sign in to FreightPOP">
+    A popup window opens to the FreightPOP login page. Sign in with your normal credentials and approve the requested permissions. The popup closes automatically when done.
+  </Step>
+  <Step title="Verify">
+    The FreightPOP connector appears in your connector list as **Connected**. Try a test prompt from [Getting Started](/getting-started).
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+See [Troubleshooting](/troubleshooting) for common connection issues.

@@ -1,0 +1,44 @@
+---
+title: "Claude Desktop"
+description: "Connect FreightPOP to the Claude Desktop app."
+---
+
+Set up the FreightPOP MCP Server as a connector in the Claude Desktop application.
+
+## Prerequisites
+
+- Claude Desktop installed ([download](https://claude.ai/download))
+- An active FreightPOP account
+
+## Setup
+
+<Steps>
+  <Step title="Open Claude Desktop settings">
+    Launch Claude Desktop, then open **Settings → Connectors**.
+
+    <Frame>
+      ![Claude Desktop settings screen](/images/placeholder-claude-desktop-settings.png)
+    </Frame>
+  </Step>
+  <Step title="Add a custom connector">
+    Click **Add custom connector** and paste the FreightPOP connector URL:
+
+    ```text
+    https://mcp.freightpop.com
+    ```
+
+    <Frame>
+      ![Adding a custom connector](/images/placeholder-claude-add-connector.png)
+    </Frame>
+  </Step>
+  <Step title="Sign in to FreightPOP">
+    Claude opens a browser popup to the FreightPOP login page. Sign in with your normal credentials and approve the requested permissions.
+  </Step>
+  <Step title="Verify">
+    Return to Claude Desktop. The FreightPOP connector should show as **Connected**. Start a new chat and try a test prompt from [Getting Started](/getting-started).
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+See [Troubleshooting](/troubleshooting) for common connection issues.

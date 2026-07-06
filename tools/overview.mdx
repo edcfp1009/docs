@@ -1,0 +1,32 @@
+---
+title: "Available Tools"
+description: "Every tool the FreightPOP MCP Server exposes to your AI client."
+sidebarTitle: "Overview"
+---
+
+The FreightPOP MCP Server exposes the following tools to your AI client. Tools are grouped by domain. Read-only tools are safe to run at any time. **Write tools** create real records or charges in your FreightPOP account — the AI client will always ask you to confirm before calling them.
+
+<CardGroup cols={2}>
+  <Card title="Tracking" icon="location-dot" href="/tools/tracking">
+    Look up shipment status, history, and lists.
+  </Card>
+
+  <Card title="Quoting" icon="dollar-sign" href="/tools/quoting">
+    Compare rates and available carriers.
+  </Card>
+
+  <Card title="Shipping" icon="truck" href="/tools/shipping">
+    Book real shipments (write — requires confirmation).
+  </Card>
+
+  <Card title="Orders" icon="file-lines" href="/tools/orders">
+    Import orders into FreightPOP.
+  </Card>
+</CardGroup>
+
+## Read-only vs. write
+
+| Type | Meaning | Confirmation required? |
+| --- | --- | --- |
+| **Read-only** | Retrieves data. Does not modify anything in FreightPOP. | No |
+| **Write** | Creates or modifies records, or triggers billable actions. | **Yes** — the AI client asks before calling. |

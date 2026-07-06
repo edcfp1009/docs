@@ -1,0 +1,27 @@
+---
+title: "Tracking"
+description: "Look up shipment status, history, and lists."
+---
+
+All tracking tools are **read-only**. They retrieve data from your FreightPOP account and never modify anything.
+
+## `get_shipment_status`
+
+Returns the current status, last tracking event, and estimated time of arrival for a specific shipment.
+
+- **Type:** Read-only
+- **Example prompt:** _"What's the status of shipment PRO123456?"_
+
+## `get_shipment_history`
+
+Returns the full tracking event log for a shipment — every scan, hand-off, and status change from pickup through delivery.
+
+- **Type:** Read-only
+- **Example prompt:** _"Show me the full tracking history for shipment PRO123456."_
+
+## `list_shipments`
+
+Returns a list of shipments filtered by date range and/or status.
+
+- **Type:** Read-only
+- **Example prompt:** _"List all shipments that are in transit from the past 7 days."_

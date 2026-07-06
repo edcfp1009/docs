@@ -1,0 +1,23 @@
+---
+title: "Shipping"
+description: "Book real shipments through your FreightPOP account."
+---
+
+Shipping tools are **write** tools. They create real records and can charge your FreightPOP account.
+
+## `create_shipment`
+
+Books a real shipment with a carrier through your FreightPOP account.
+
+- **Type:** Write
+- <Warning>
+    **This tool books a real shipment and charges the account.** Your AI client will always ask for your explicit confirmation before calling `create_shipment`. Always review the carrier, service, and total charges shown in the confirmation before you approve.
+  </Warning>
+- **Example prompt:** _"Book the cheapest quote from that list with XPO."_
+
+### What happens on success
+
+- A shipment record is created in FreightPOP.
+- The selected carrier receives the booking.
+- Your account is charged per your normal FreightPOP billing terms.
+- Tracking becomes available via [`get_shipment_status`](/tools/tracking) once the carrier posts the first event.

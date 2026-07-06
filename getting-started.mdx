@@ -1,0 +1,49 @@
+---
+title: "Getting Started"
+description: "Connect your FreightPOP account to an AI client and run your first prompt."
+---
+
+This guide walks you through connecting the FreightPOP MCP Server to an AI client (Claude, ChatGPT) and confirming the connection works.
+
+## Prerequisites
+
+If you don't have a FreightPOP account yet, [contact sales](https://www.freightpop.com/contact) to get started.
+
+## How to connect
+
+The FreightPOP MCP Server uses **OAuth 2.0** — the same secure login flow banks and enterprise apps use. You never share your password with the AI client.
+
+<Steps>
+  <Step title="Add the FreightPOP connector to your AI client">
+    Follow the [client-specific setup guide](/clients/claude-desktop) for the AI client you use. Each guide covers where to paste the connector URL and how to enable the tools.
+  </Step>
+  <Step title="Sign in through the OAuth popup">
+    The first time your AI client calls a FreightPOP tool, a browser popup opens on the FreightPOP login page. Sign in with your normal FreightPOP credentials.
+  </Step>
+  <Step title="Approve the connection (one-time)">
+    Review the requested permissions and click **Approve**. The popup closes automatically. You'll only see this screen the first time — future sessions reuse the approval.
+  </Step>
+  <Step title="Confirmation">
+    Your AI client will now display FreightPOP as a connected tool provider. You're ready to start issuing commands.
+  </Step>
+</Steps>
+
+## First test prompt
+
+Open a new chat in your AI client and try:
+
+> **"Using FreightPOP, list my last 5 shipments."**
+
+A successful response returns a short list of your recent shipments with their status. If you see an authentication error or nothing happens, jump to [Troubleshooting](/troubleshooting).
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Client setup" icon="plug" href="/clients/claude-desktop">
+    Detailed setup for each supported AI client.
+  </Card>
+
+  <Card title="Available tools" icon="wrench" href="/tools/overview">
+    See everything the AI client can do on your behalf.
+  </Card>
+</CardGroup>

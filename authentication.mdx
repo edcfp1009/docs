@@ -1,0 +1,37 @@
+---
+title: "Authentication & Security"
+description: "How the FreightPOP MCP Server signs you in and protects your data."
+sidebarTitle: "Authentication & Security"
+---
+
+## Sign-in flow
+
+The FreightPOP MCP Server uses **OAuth 2.0** — the industry-standard secure sign-in protocol used by banks, enterprise apps, and every major SaaS platform.
+
+When your AI client first calls a FreightPOP tool:
+
+1. A browser popup opens on the FreightPOP login page.
+2. You sign in with your normal FreightPOP username and password. **Your password is entered directly on FreightPOP — the AI client never sees it.**
+3. You approve the requested permissions once.
+4. FreightPOP issues a short-lived access token to the AI client.
+
+Future requests reuse that token, so you won't be prompted to sign in on every message.
+
+## Session and token expiry
+
+Access tokens are short-lived for your protection.
+
+- When your session expires, the next tool call may fail with an authentication error.
+- Most AI clients handle this automatically — they'll re-open the login popup or retry the request after refreshing the token.
+- If automatic re-authentication doesn't happen, sign in again via the same connector settings you used originally. Your prior approvals are remembered.
+
+## Data handling
+
+## Revoking access
+
+You can disconnect the FreightPOP MCP Server at any time:
+
+- **In your AI client:** remove the FreightPOP connector from your client's settings.
+- **In FreightPOP:** contact [support](/support) to revoke active tokens for your account.
+
+Once disconnected, all outstanding tokens are invalidated and the AI client can no longer call FreightPOP tools until you reconnect.
