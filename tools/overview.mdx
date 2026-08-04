@@ -4,29 +4,47 @@ description: "Every tool the FreightPOP MCP Server exposes to your AI client."
 sidebarTitle: "Overview"
 ---
 
-The FreightPOP MCP Server exposes the following tools to your AI client. Tools are grouped by domain. Read-only tools are safe to run at any time. **Write tools** create real records or charges in your FreightPOP account — the AI client will always ask you to confirm before calling them.
+The FreightPOP MCP Server exposes eight tools to your AI client, grouped by domain. Read-only tools retrieve data and never change anything in your account. **Write tools** create, modify, or cancel real records in your FreightPOP account, and your AI client asks you to confirm before calling them.
 
 <CardGroup cols={2}>
   <Card title="Tracking" icon="location-dot" href="/tools/tracking">
-    Look up shipment status, history, and lists.
+    Look up shipment tracking and full shipment details.
   </Card>
 
   <Card title="Quoting" icon="dollar-sign" href="/tools/quoting">
-    Compare rates and available carriers.
+    Compare rates and see which carriers are available.
   </Card>
 
   <Card title="Shipping" icon="truck" href="/tools/shipping">
-    Book real shipments (write — requires confirmation).
+    Book and cancel real shipments (write, requires confirmation).
   </Card>
 
   <Card title="Orders" icon="file-lines" href="/tools/orders">
-    Import orders into FreightPOP.
+    Import orders into FreightPOP (write, requires confirmation).
+  </Card>
+
+  <Card title="Addresses" icon="location-check" href="/tools/addresses">
+    Validate and standardize a shipping address.
   </Card>
 </CardGroup>
+
+## Full tool list
+
+| Tool | What it does | Type |
+| --- | --- | --- |
+| [`get_tracking`](/tools/tracking#get-tracking) | Tracking events for one or more shipments | Read-only |
+| [`freightpop_get_shipment_details`](/tools/tracking#freightpop-get-shipment-details) | Full shipment record: carrier, rate, addresses, items, documents | Read-only |
+| [`get_rates`](/tools/quoting#get-rates) | Rate quotes from available carriers | Read-only |
+| [`get_carriers`](/tools/quoting#get-carriers) | Carriers configured on your account | Read-only |
+| [`freightpop_validate_address`](/tools/addresses#freightpop-validate-address) | Validate and standardize an address | Read-only |
+| [`freightpop_create_shipment`](/tools/shipping#freightpop-create-shipment) | Book a real shipment with a carrier | **Write** |
+| [`freightpop_cancel_shipment`](/tools/shipping#freightpop-cancel-shipment) | Cancel an existing shipment | **Write (destructive)** |
+| [`freightpop_import_orders`](/tools/orders#freightpop-import-orders) | Import up to 50 orders | **Write** |
 
 ## Read-only vs. write
 
 | Type | Meaning | Confirmation required? |
 | --- | --- | --- |
 | **Read-only** | Retrieves data. Does not modify anything in FreightPOP. | No |
-| **Write** | Creates or modifies records, or triggers billable actions. | **Yes** — the AI client asks before calling. |
+| **Write** | Creates or modifies records, or triggers billable actions. | **Yes**, the AI client asks before calling. |
+| **Write (destructive)** | Cancels or removes an existing record. | **Yes**, and review carefully before approving. |

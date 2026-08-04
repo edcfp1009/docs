@@ -1,23 +1,42 @@
 ---
 title: "Shipping"
-description: "Book real shipments through your FreightPOP account."
+description: "Book and cancel real shipments through your FreightPOP account."
 ---
 
-Shipping tools are **write** tools. They create real records and can charge your FreightPOP account.
+Shipping tools are **write** tools. They create and cancel real records and can charge your FreightPOP account.
 
-## `create_shipment`
+## `freightpop_create_shipment`
 
-Books a real shipment with a carrier through your FreightPOP account.
+Books a real shipment with a carrier through your FreightPOP account. Two ways to call it:
+
+- **With a quote:** pass the quote ID and rate ID from a prior `get_rates` call. This is the normal path.
+- **Without a quote:** pass a carrier ID, line items, and a payment term to ship directly.
+
+Details:
 
 - **Type:** Write
 - <Warning>
-    **This tool books a real shipment and charges the account.** Your AI client will always ask for your explicit confirmation before calling `create_shipment`. Always review the carrier, service, and total charges shown in the confirmation before you approve.
+    **This tool books a real shipment and charges the account.** Your AI client asks for your explicit confirmation before calling it. Always review the carrier, service, and total charges shown in the confirmation before you approve.
   </Warning>
-- **Example prompt:** _"Book the cheapest quote from that list with XPO."_
+- **Example prompt:** _"Book the cheapest quote from that list."_
+- **Example prompt:** _"Ship this with XPO, prepaid, and email the notification to ops@example.com."_
 
 ### What happens on success
 
 - A shipment record is created in FreightPOP.
 - The selected carrier receives the booking.
 - Your account is charged per your normal FreightPOP billing terms.
-- Tracking becomes available via [`get_shipment_status`](/tools/tracking) once the carrier posts the first event.
+- Tracking becomes available via [`get_tracking`](/tools/tracking#get-tracking) once the carrier posts the first event.
+- If you asked for one, a ZPL shipping label is returned in the response.
+
+## `freightpop_cancel_shipment`
+
+Cancels an existing shipment by its FreightPOP shipment ID.
+
+- **Type:** Write (destructive)
+- <Warning>
+    **This cancels a real shipment with the carrier.** Cancellation may not be reversible, and depending on the carrier and how far along the shipment is, cancellation may fail or leave charges in place. Confirm the shipment ID before approving.
+  </Warning>
+- **Example prompt:** _"Cancel shipment 1234567890."_
+
+If the cancellation fails, the response says so rather than silently doing nothing. Check the shipment in the FreightPOP web app before retrying.

@@ -1,55 +1,62 @@
-# Mintlify Starter Kit
+# FreightPOP MCP Documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
+Public documentation for the **FreightPOP MCP Server**, which connects a FreightPOP account to AI clients (Claude Desktop, Claude.ai, ChatGPT) over the Model Context Protocol.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+Live site: https://docs.freightpop.com
+Connector URL: `https://tms-mcp.freightpop.com/mcp`
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+## What's here
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+| Path | Contents |
+| --- | --- |
+| `index.mdx` | Landing page and overview |
+| `getting-started.mdx` | Connect an AI client and run a first prompt |
+| `clients/` | Per-client setup guides (Claude Desktop, Claude.ai, ChatGPT, Microsoft Copilot) |
+| `tools/` | Reference for each tool the server exposes |
+| `authentication.mdx` | OAuth flow, session handling, data handling |
+| `troubleshooting.mdx` | Common failures and fixes |
+| `support.mdx` | How to reach support |
+| `docs.json` | Site config and navigation |
 
-## AI-assisted writing
+## Keeping the tool reference accurate
 
-Set up your AI coding tool to work with Mintlify:
+The pages under `tools/` must match the tools the production server actually exposes. When a tool is added, removed, or renamed on `tms-mcp.freightpop.com`, update:
 
-```bash
-npx skills add https://mintlify.com/docs
-```
+1. The relevant page under `tools/`
+2. The full tool list table in `tools/overview.mdx`
+3. `docs.json` navigation, if a page was added or removed
 
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
+Directory reviewers (Anthropic, OpenAI) compare these docs against the live tool list, so a mismatch is a submission blocker.
 
-See the [AI tools guides](/ai-tools) for tool-specific setup.
+## Privacy policy
 
-## Development
+Data handling for the MCP Server is documented in [`authentication.mdx`](./authentication.mdx). The authoritative company policy lives at:
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+- Privacy Policy: https://www.freightpop.com/privacy
+- Terms & Conditions: https://www.freightpop.com/terms-conditions
+
+Both must stay publicly reachable over HTTPS. They are a hard requirement for the Claude Connectors Directory and the OpenAI app directory.
+
+## Local development
+
+Install the [Mintlify CLI](https://www.npmjs.com/package/mint):
 
 ```
 npm i -g mint
 ```
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
+Run at the repo root, where `docs.json` lives:
 
 ```
 mint dev
 ```
 
-View your local preview at `http://localhost:3000`.
+Preview at `http://localhost:3000`. Run `mint update` if the CLI misbehaves.
 
-## Publishing changes
+## Publishing
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
+Changes to the default branch deploy automatically via the Mintlify GitHub app.
 
-## Need help?
+## Support
 
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+support@freightpop.com

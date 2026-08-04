@@ -1,0 +1,14 @@
+---
+title: "Addresses"
+description: "Validate and standardize a shipping address."
+---
+
+## `freightpop_validate_address`
+
+Checks whether a shipping address is valid and returns a corrected, standardized version when one is available. Optionally validates the ZIP+4 extension.
+
+- **Type:** Read-only
+- **Example prompt:** _"Is 26440 La Alameda, Lake Forest, CA 92630 a valid shipping address?"_
+- **Example prompt:** _"Clean up this address before we quote it."_
+
+Validating an address does not create anything in FreightPOP. Use it before quoting or booking to catch bad ZIP codes early, which is the most common cause of a rejected rate request.

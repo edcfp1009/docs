@@ -3,22 +3,24 @@ title: "Orders"
 description: "Import orders into FreightPOP."
 ---
 
-## `create_order`
+## `freightpop_import_orders`
 
-Imports an order into your FreightPOP account.
+Imports one or more orders into your FreightPOP account, up to 50 per call. Each order carries its own addresses, line items, references, and optional documents. You can attach a quote ID and rate ID from `get_rates` to pre-select a carrier and rate.
 
 - **Type:** Write
-- **Example prompt:** _"Create an order for Acme Corp, order number SO-1042, shipping from our LA warehouse to their Dallas dock."_
+- **Example prompt:** _"Import order SO-1042 for Acme Corp, shipping from our LA warehouse to their Dallas dock."_
 
-### Idempotency behavior
+<Warning>
+  Orders can be set to auto-process into a shipment on import. When that option is on, importing an order can dispatch real freight and charge your account. Your AI client asks you to confirm before importing, so review whether auto-processing is enabled before you approve.
+</Warning>
 
-`create_order` is **idempotent by order number**:
+### Order numbers must be unique
 
-- **Same order number \+ identical content** → safe. The server recognizes the duplicate and does not create a second order.
-- **Same order number \+ different content** → the server returns an error instead of overwriting the existing order. This protects you from silently corrupting a live order.
+Every order number must be unique among your prior imports.
 
-If you need to change an existing order, modify it in the FreightPOP web app rather than resubmitting via the AI client.
+- **Reusing an order number** is rejected rather than overwriting the existing order. This protects you from silently corrupting a live order.
+- If you need to change an existing order, modify it in the FreightPOP web app rather than re-importing it through the AI client.
 
 <Tip>
-  Worried you accidentally created a duplicate? See ["I think I created a duplicate order"](/troubleshooting#i-think-i-created-a-duplicate-order) in Troubleshooting.
+  Not sure whether an import went through? See ["I think I imported a duplicate order"](/troubleshooting#i-think-i-imported-a-duplicate-order) in Troubleshooting.
 </Tip>

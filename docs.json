@@ -12,15 +12,6 @@
     "dark": "/images/Logo.svg"
   },
   "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
     "global": {
       "anchors": [
         {
@@ -62,7 +53,8 @@
           "tools/tracking",
           "tools/quoting",
           "tools/shipping",
-          "tools/orders"
+          "tools/orders",
+          "tools/addresses"
         ]
       },
       {
@@ -85,6 +77,14 @@
       {
         "label": "Support",
         "href": "mailto:support@freightpop.com"
+      },
+      {
+        "label": "Privacy",
+        "href": "https://www.freightpop.com/privacy"
+      },
+      {
+        "label": "Terms",
+        "href": "https://www.freightpop.com/terms-conditions"
       }
     ],
     "primary": {
