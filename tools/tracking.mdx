@@ -1,27 +1,22 @@
 ---
 title: "Tracking"
-description: "Look up shipment status, history, and lists."
+description: "Look up shipment tracking and full shipment details."
 ---
 
-All tracking tools are **read-only**. They retrieve data from your FreightPOP account and never modify anything.
+Both tracking tools are **read-only**. They retrieve data from your FreightPOP account and never modify anything.
 
-## `get_shipment_status`
+## `get_tracking`
 
-Returns the current status, last tracking event, and estimated time of arrival for a specific shipment.
-
-- **Type:** Read-only
-- **Example prompt:** _"What's the status of shipment PRO123456?"_
-
-## `get_shipment_history`
-
-Returns the full tracking event log for a shipment — every scan, hand-off, and status change from pickup through delivery.
+Returns tracking events for one or more shipments. You can look shipments up three ways: by FreightPOP shipment ID, by carrier tracking number, or by order number. Up to 50 lookups per call.
 
 - **Type:** Read-only
-- **Example prompt:** _"Show me the full tracking history for shipment PRO123456."_
+- **Example prompt:** _"Track shipment 1234567890 in FreightPOP."_
+- **Example prompt:** _"Where are orders SO-1042 and SO-1043 right now?"_
 
-## `list_shipments`
+## `freightpop_get_shipment_details`
 
-Returns a list of shipments filtered by date range and/or status.
+Returns the full shipment record: carrier and service, selected rate, shipper and consignee addresses, line items, attached documents, and tracking numbers. Lookups are supported by quote ID, shipment ID, PRO number, order number, or date.
 
 - **Type:** Read-only
-- **Example prompt:** _"List all shipments that are in transit from the past 7 days."_
+- **Example prompt:** _"Pull up the full details for PRO 123456789."_
+- **Example prompt:** _"What carrier and rate did we use on order SO-1042?"_

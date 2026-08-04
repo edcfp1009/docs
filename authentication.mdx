@@ -6,26 +6,61 @@ sidebarTitle: "Authentication & Security"
 
 ## Sign-in flow
 
-The FreightPOP MCP Server uses **OAuth 2.0** — the industry-standard secure sign-in protocol used by banks, enterprise apps, and every major SaaS platform.
+The FreightPOP MCP Server uses **OAuth 2.0**, the industry-standard secure sign-in protocol used by banks, enterprise apps, and every major SaaS platform.
 
 When your AI client first calls a FreightPOP tool:
 
 1. A browser popup opens on the FreightPOP login page.
-2. You sign in with your normal FreightPOP username and password. **Your password is entered directly on FreightPOP — the AI client never sees it.**
+2. You sign in with your normal FreightPOP username and password. **Your password is entered directly on FreightPOP, and the AI client never sees it.**
 3. You approve the requested permissions once.
 4. FreightPOP issues a short-lived access token to the AI client.
 
-Future requests reuse that token, so you won't be prompted to sign in on every message.
+Future requests reuse that token, so you are not prompted to sign in on every message.
 
 ## Session and token expiry
 
 Access tokens are short-lived for your protection.
 
 - When your session expires, the next tool call may fail with an authentication error.
-- Most AI clients handle this automatically — they'll re-open the login popup or retry the request after refreshing the token.
-- If automatic re-authentication doesn't happen, sign in again via the same connector settings you used originally. Your prior approvals are remembered.
+- Most AI clients handle this automatically by re-opening the login popup or refreshing the token.
+- If automatic re-authentication does not happen, sign in again via the same connector settings you used originally. Your prior approvals are remembered.
 
 ## Data handling
+
+### What data leaves FreightPOP
+
+Only the data needed to answer the request you made. When your AI client calls a FreightPOP tool, the tool's response travels back through your AI provider so the model can read it and answer you. Depending on which tool ran, that response can include:
+
+- Shipment and order records, including reference numbers and line-item details
+- Shipper, consignee, and third-party addresses, contact names, phone numbers, and email addresses
+- Carrier names, services, rates, and charges
+- Documents attached to an order, when you ask for them
+
+Anything you type into the chat also reaches your AI provider, the same as any other message you send it.
+
+### Who processes it
+
+Three parties are involved in a tool call:
+
+| Party | Role |
+| --- | --- |
+| **FreightPOP** | Holds your account data and serves the tool responses. |
+| **Your AI provider** (Anthropic, OpenAI) | Receives the tool response so the model can read it, and is governed by their terms and privacy policy, not ours. |
+| **Your carriers** | Receive booking and tracking requests, as they already do when you use the FreightPOP web app. |
+
+Your AI provider's handling of your conversations, including whether they are retained or used for model training, is controlled by **your account settings with that provider**. Review their privacy policy and data controls directly. FreightPOP cannot change those settings on your behalf.
+
+### What FreightPOP does with it
+
+Tool calls run against your existing FreightPOP account under your own user permissions. The MCP Server does not give an AI client access to anything you could not already see and do in the FreightPOP web app, and it does not create a separate copy of your data.
+
+For FreightPOP's full data practices, including collection, retention, and third-party subprocessors, see the [FreightPOP Privacy Policy](https://www.freightpop.com/privacy).
+
+### Reducing what is exposed
+
+- Ask narrow questions. "What's the status of shipment X" returns far less than "list everything from the last month."
+- Review the confirmation prompt before approving a write tool. It shows exactly what will be sent.
+- Turn off individual tools in your AI client's connector settings if you only want a subset available.
 
 ## Revoking access
 

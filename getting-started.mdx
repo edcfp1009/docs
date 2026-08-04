@@ -32,9 +32,15 @@ The FreightPOP MCP Server uses **OAuth 2.0** — the same secure login flow bank
 
 Open a new chat in your AI client and try:
 
-> **"Using FreightPOP, list my last 5 shipments."**
+> **"Which carriers do we have set up in FreightPOP?"**
 
-A successful response returns a short list of your recent shipments with their status. If you see an authentication error or nothing happens, jump to [Troubleshooting](/troubleshooting).
+A successful response lists the carriers configured on your account. This is the simplest possible check: it is read-only, needs no input from you, and confirms both the connection and your permissions in one step.
+
+If you see an authentication error or nothing happens, jump to [Troubleshooting](/troubleshooting).
+
+Once that works, try a real lookup:
+
+> **"Track shipment 1234567890 in FreightPOP."**
 
 ## Next steps
 

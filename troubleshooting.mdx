@@ -15,7 +15,7 @@ Most connection failures fall into two buckets:
 **Wrong connector URL**
 
 - Symptom: the client shows "connector unreachable" or a 404 during setup.
-- Fix: double-check the URL matches exactly what's shown in the setup guide for your client. Copy-paste rather than typing it.
+- Fix: the connector URL is `https://tms-mcp.freightpop.com/mcp`, including the `/mcp` path. Copy-paste it rather than typing it, and make sure no trailing slash or extra path was added.
 
 ## My request was rejected
 
@@ -25,31 +25,33 @@ Common examples:
 
 | Error | Cause | Fix |
 | --- | --- | --- |
-| `Invalid ZIP/postal code` | Origin or destination ZIP is malformed or unknown. | Verify the ZIP with the customer and retry. |
+| `Invalid ZIP/postal code` | Origin or destination ZIP is malformed or unknown. | Verify the ZIP with the customer and retry, or run [`freightpop_validate_address`](/tools/addresses) first. |
 | `Weight must be greater than 0` | Weight submitted as `0` or a negative value. | Provide a positive weight in pounds. |
+| `Quantity must be greater than 0` | A line item was submitted without a quantity. | Give each item a positive quantity. |
 | `Freight class is required for LTL` | An LTL quote was requested without a class. | Add the freight class (e.g. `class 70`). |
 | `Origin and destination are required` | One of the addresses was missing. | Re-issue the prompt with both addresses. |
 
-If your AI client shows a raw validation message, read it carefully — it names the field that failed. Correct that field and try again.
+If your AI client shows a raw validation message, read it carefully. It names the field that failed. Correct that field and try again.
 
-## I think I created a duplicate order
+## I think I imported a duplicate order
 
-`create_order` is **idempotent by order number**. This means:
-
-- If you resubmit the exact same order (same order number, same content), FreightPOP recognizes the duplicate and will **not** create a second order.
-- If you resubmit the same order number with **different** content, FreightPOP returns an error instead of overwriting the existing order.
+Order numbers must be unique. [`freightpop_import_orders`](/tools/orders) rejects an order number that already exists rather than overwriting it, so you cannot end up with two conflicting versions of the same order.
 
 To confirm what actually happened, ask the AI client:
 
 > _"Look up order number SO-1042 in FreightPOP."_
 
-Or open the FreightPOP web app and search for the order number. You'll see either one order or an error — never two conflicting versions.
+Or open the FreightPOP web app and search for the order number.
 
-See [`create_order`](/tools/orders) for full details.
+## A shipment wouldn't cancel
+
+[`freightpop_cancel_shipment`](/tools/shipping#freightpop-cancel-shipment) can fail when the carrier has already picked up the freight or the shipment is too far along to accept a cancellation. The response tells you the cancellation did not succeed rather than failing silently.
+
+Check the shipment in the FreightPOP web app, and contact the carrier directly if it has already moved.
 
 ## The tool timed out
 
-Occasionally a tool call fails with a timeout — usually because a downstream carrier or system was slow to respond.
+Occasionally a tool call fails with a timeout, usually because a downstream carrier or system was slow to respond.
 
 - If the error response includes **`retryable: true`**, the call is safe to try again. Ask the AI client to retry the same request.
 - If it says **`retryable: false`**, wait a minute and try again, or use the FreightPOP web app to complete the action.
