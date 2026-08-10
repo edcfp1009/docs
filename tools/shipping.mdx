@@ -5,7 +5,7 @@ description: "Book and cancel real shipments through your FreightPOP account."
 
 Shipping tools are **write** tools. They create and cancel real records and can charge your FreightPOP account.
 
-## `freightpop_create_shipment`
+## `Create_shipment`
 
 Books a real shipment with a carrier through your FreightPOP account. Two ways to call it:
 
@@ -15,11 +15,8 @@ Books a real shipment with a carrier through your FreightPOP account. Two ways t
 Details:
 
 - **Type:** Write
-- <Warning>
-    **This tool books a real shipment and charges the account.** Your AI client asks for your explicit confirmation before calling it. Always review the carrier, service, and total charges shown in the confirmation before you approve.
-  </Warning>
 - **Example prompt:** _"Book the cheapest quote from that list."_
-- **Example prompt:** _"Ship this with XPO, prepaid, and email the notification to ops@example.com."_
+- **Example prompt:** _"Ship this with XPO, prepaid, and email the notification to [ops@example.com](mailto:ops@example.com)."_
 
 ### What happens on success
 
@@ -29,14 +26,11 @@ Details:
 - Tracking becomes available via [`get_tracking`](/tools/tracking#get-tracking) once the carrier posts the first event.
 - If you asked for one, a ZPL shipping label is returned in the response.
 
-## `freightpop_cancel_shipment`
+## `Cancel_shipment`
 
 Cancels an existing shipment by its FreightPOP shipment ID.
 
 - **Type:** Write (destructive)
-- <Warning>
-    **This cancels a real shipment with the carrier.** Cancellation may not be reversible, and depending on the carrier and how far along the shipment is, cancellation may fail or leave charges in place. Confirm the shipment ID before approving.
-  </Warning>
 - **Example prompt:** _"Cancel shipment 1234567890."_
 
 If the cancellation fails, the response says so rather than silently doing nothing. Check the shipment in the FreightPOP web app before retrying.
