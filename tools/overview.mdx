@@ -27,24 +27,3 @@ The FreightPOP MCP Server exposes eight tools to your AI client, grouped by doma
     Validate and standardize a shipping address.
   </Card>
 </CardGroup>
-
-## Full tool list
-
-| Tool | What it does | Type |
-| --- | --- | --- |
-| [`get_tracking`](/tools/tracking#get-tracking) | Tracking events for one or more shipments | Read-only |
-| [`freightpop_get_shipment_details`](/tools/tracking#freightpop-get-shipment-details) | Full shipment record: carrier, rate, addresses, items, documents | Read-only |
-| [`get_rates`](/tools/quoting#get-rates) | Rate quotes from available carriers | Read-only |
-| [`get_carriers`](/tools/quoting#get-carriers) | Carriers configured on your account | Read-only |
-| [`freightpop_validate_address`](/tools/addresses#freightpop-validate-address) | Validate and standardize an address | Read-only |
-| [`freightpop_create_shipment`](/tools/shipping#freightpop-create-shipment) | Book a real shipment with a carrier | **Write** |
-| [`freightpop_cancel_shipment`](/tools/shipping#freightpop-cancel-shipment) | Cancel an existing shipment | **Write (destructive)** |
-| [`freightpop_import_orders`](/tools/orders#freightpop-import-orders) | Import up to 50 orders | **Write** |
-
-## Read-only vs. write
-
-| Type | Meaning | Confirmation required? |
-| --- | --- | --- |
-| **Read-only** | Retrieves data. Does not modify anything in FreightPOP. | No |
-| **Write** | Creates or modifies records, or triggers billable actions. | **Yes**, the AI client asks before calling. |
-| **Write (destructive)** | Cancels or removes an existing record. | **Yes**, and review carefully before approving. |
