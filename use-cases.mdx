@@ -1,0 +1,86 @@
+---
+title: "Use Cases"
+description: "How different teams use the FreightPOP MCP Server day to day."
+---
+
+The FreightPOP MCP Server works the same way for everyone: read-only tools retrieve data, write tools ask for confirmation. What you actually ask for tends to depend on your role. Here's how a few common roles use it.
+
+## Dispatch & Operations
+
+Day-to-day shipment handling without switching between the FreightPOP web app and other tools.
+
+<CardGroup cols={1}>
+  <Card title="Quote and book in one pass" icon="truck">
+    _"Get me rates from Lake Forest, CA to Dallas, TX, 500 lbs, class 70, 2 pallets, then book the cheapest one."_
+  </Card>
+
+  <Card title="Check where a shipment is" icon="location-dot">
+    _"Where's shipment 1234567890 right now?"_
+  </Card>
+
+  <Card title="Cancel before it dispatches" icon="ban">
+    _"Cancel shipment 1234567890, the customer changed the pickup date."_
+  </Card>
+</CardGroup>
+
+See [Tracking](/tools/tracking), [Quoting](/tools/quoting), and [Shipping](/tools/shipping) for the full tool list.
+
+## Customer Service
+
+Answering "where is my order" without putting a customer on hold to dig through the web app.
+
+<CardGroup cols={1}>
+  <Card title="Fast status lookup" icon="magnifying-glass">
+    _"What's the status of order SO-1042?"_
+  </Card>
+
+  <Card title="Pull the full record for a support ticket" icon="file-lines">
+    _"Pull up the full shipment details for PRO 123456789, I need the carrier and rate for a billing question."_
+  </Card>
+</CardGroup>
+
+Every lookup here is read-only, so there's no risk of accidentally changing a live shipment while you're on a call.
+
+## Account Management & Brokers
+
+Getting a customer a quote fast, without logging into the web app mid-call.
+
+<CardGroup cols={1}>
+  <Card title="Quote while on the phone" icon="dollar-sign">
+    _"Get me rate quotes from Chicago, IL to Miami, FL, 800 lbs, class 85."_
+  </Card>
+
+  <Card title="Check which carriers are available" icon="list-check">
+    _"Which carriers do we have set up for LTL?"_
+  </Card>
+</CardGroup>
+
+## Order & Fulfillment Teams
+
+Getting orders into FreightPOP without manual data entry.
+
+<CardGroup cols={1}>
+  <Card title="Import a batch of orders" icon="file-plus">
+    _"Import order SO-1042 for Acme Corp, shipping from our LA warehouse to their Dallas dock."_
+  </Card>
+
+  <Card title="Validate addresses before importing" icon="location-check">
+    _"Clean up this address before we quote it: 26440 La Alameda, Lake Forest, CA."_
+  </Card>
+</CardGroup>
+
+<Warning>
+  Orders can be set to auto-process into a shipment on import. Review the confirmation prompt before approving, especially for a role that imports in bulk.
+</Warning>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Available tools" icon="wrench" href="/tools/overview">
+    See every tool behind these examples.
+  </Card>
+
+  <Card title="Getting started" icon="rocket" href="/getting-started">
+    Connect your account and try your first prompt.
+  </Card>
+</CardGroup>

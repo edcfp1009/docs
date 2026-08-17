@@ -1,0 +1,60 @@
+---
+title: "FAQ"
+description: "Common questions about the FreightPOP MCP Server."
+---
+
+## General
+
+### What is MCP?
+
+Model Context Protocol (MCP) is an open standard that lets AI assistants call external tools and data sources in a standardized way. The FreightPOP MCP Server is how your AI client (Claude, ChatGPT, etc.) talks to your FreightPOP account.
+
+### Do I need to know how to code?
+
+No. You describe what you need in plain English, _"track this shipment"_, _"get me a quote to Chicago"_, and your AI client translates that into the right FreightPOP tool call. No API keys, no scripting.
+
+### Does it cost extra?
+
+Contact your FreightPOP account representative, or [request a demo](https://info.freightpop.com/lp-request-a-demo?hsCtaAttrib=199942409126) if you're not yet a customer, for current pricing.
+
+## Using it day to day
+
+### Can I use my own carrier accounts and negotiated rates?
+
+Yes. The MCP Server runs against your FreightPOP account, so it sees the same carriers, rates, and permissions you already have configured. It doesn't create a separate account or a separate view of your data.
+
+### What happens if I make a mistake?
+
+Read-only tools, tracking, quoting, address validation, can't change anything, so there's nothing to undo. Write tools, booking a shipment, cancelling a shipment, importing an order, always ask you to confirm before they run, and the confirmation shows exactly what will be sent. Review it before approving.
+
+### Can I use this for real, production shipments?
+
+Yes. Once connected, bookings and imports made through your AI client are real and go through your normal FreightPOP billing.
+
+### Can I automate a recurring workflow, like checking tracking every morning?
+
+That depends on your AI client, not on FreightPOP. Some clients support running a prompt on a recurring schedule. The FreightPOP MCP Server itself doesn't schedule anything; it responds to whatever your AI client asks it at the time.
+
+### Can I use MCP alongside the FreightPOP web app?
+
+Yes. Both work off the same account and the same data. Use whichever fits the task; nothing you do through one blocks or conflicts with the other.
+
+## Security and access
+
+### Is my data secure?
+
+The MCP Server uses OAuth 2.0. You sign in directly on FreightPOP; the AI client never sees your password. See [Authentication & Security](/authentication) for the full breakdown of what data leaves FreightPOP and who processes it.
+
+### Can I access my stored addresses and account data?
+
+Yes, but only what your FreightPOP user permissions already allow. The MCP Server doesn't grant access beyond what you could already see and do in the web app.
+
+### What AI clients support this?
+
+Claude Desktop, Claude.ai, ChatGPT, and Microsoft Copilot are documented in [Client Setup Guides](/clients/claude-desktop). Any other MCP-compatible client can connect using the same connector URL.
+
+## When something goes wrong
+
+### What if something goes wrong?
+
+Start with [Troubleshooting](/troubleshooting). For connection issues, rejected requests, and shipments that won't cancel, it walks through the exact fix. If your issue isn't listed there, [contact support](/support).

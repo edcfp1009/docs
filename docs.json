@@ -29,6 +29,13 @@
         ]
       },
       {
+        "group": "Use Cases",
+        "icon": "user-group",
+        "pages": [
+          "use-cases"
+        ]
+      },
+      {
         "group": "Getting Started",
         "icon": "rocket",
         "pages": [
@@ -58,9 +65,17 @@
         ]
       },
       {
+        "group": "Concepts",
+        "icon": "layer-group",
+        "pages": [
+          "skills"
+        ]
+      },
+      {
         "group": "Reference",
         "icon": "book",
         "pages": [
+          "faq",
           "authentication",
           "troubleshooting",
           "support"
