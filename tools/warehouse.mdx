@@ -1,0 +1,31 @@
+---
+title: "Warehouse"
+description: "Look up WMS inventory, picking status, and receipts."
+icon: "warehouse"
+---
+
+All three warehouse tools are **read-only**. They retrieve data from your FreightPOP WMS and never modify anything.
+
+## `get_wms_inventory_by_item`
+
+Returns inventory detail for a given item number, optionally filtered by warehouse.
+
+- **Type:** Read-only
+- **Example prompt:** _"How much of item SKU-4521 do we have in stock?"_
+- **Example prompt:** _"What's our inventory for item 8842 at the Dallas warehouse?"_
+
+## `search_wms_picking_status`
+
+Returns picking status for warehouse orders. Search by transaction number, PO number, SO number, warehouse, or shipment.
+
+- **Type:** Read-only
+- **Example prompt:** _"What's the picking status on PO 90142?"_
+- **Example prompt:** _"Has SO-1042 been picked yet?"_
+
+## `search_wms_receipts`
+
+Returns receipt-level records from the warehouse. Search by transaction number, PO number, vendor, or warehouse.
+
+- **Type:** Read-only
+- **Example prompt:** _"Show me receipts for vendor Acme Corp this week."_
+- **Example prompt:** _"Did PO 90142 get received yet?"_

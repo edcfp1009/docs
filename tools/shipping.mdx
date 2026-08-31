@@ -5,7 +5,7 @@ description: "Book and cancel real shipments through your FreightPOP account."
 
 Shipping tools are **write** tools. They create and cancel real records and can charge your FreightPOP account.
 
-## `Create_shipment`
+## `freightpop_create_shipment`
 
 Books a real shipment with a carrier through your FreightPOP account. Two ways to call it:
 
@@ -26,7 +26,7 @@ Details:
 - Tracking becomes available via [`get_tracking`](/tools/tracking#get-tracking) once the carrier posts the first event.
 - If you asked for one, a ZPL shipping label is returned in the response.
 
-## `Cancel_shipment`
+## `freightpop_cancel_shipment`
 
 Cancels an existing shipment by its FreightPOP shipment ID.
 
