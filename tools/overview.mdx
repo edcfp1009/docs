@@ -35,3 +35,24 @@ The FreightPOP MCP Server exposes twelve tools to your AI client, grouped by dom
     Auto-calculate shipment packaging from addresses and items.
   </Card>
 </CardGroup>
+
+## Full tool list
+
+Every tool the server exposes, with the exact name your AI client sees. Tool names are case-sensitive.
+
+| Tool | Type | Page |
+| --- | --- | --- |
+| `get_tracking` | Read-only | [Tracking](/tools/tracking#get-tracking) |
+| `freightpop_get_shipment_details` | Read-only | [Tracking](/tools/tracking#freightpop-get-shipment-details) |
+| `get_rates` | Read-only | [Quoting](/tools/quoting#get-rates) |
+| `get_carriers` | Read-only | [Quoting](/tools/quoting#get-carriers) |
+| `freightpop_create_shipment` | **Write** | [Shipping](/tools/shipping#freightpop-create-shipment) |
+| `freightpop_cancel_shipment` | **Write** | [Shipping](/tools/shipping#freightpop-cancel-shipment) |
+| `freightpop_import_orders` | **Write** | [Orders](/tools/orders#freightpop-import-orders) |
+| `freightpop_validate_address` | Read-only | [Addresses](/tools/addresses#freightpop-validate-address) |
+| `get_wms_inventory_by_item` | Read-only | [Warehouse](/tools/warehouse#get-wms-inventory-by-item) |
+| `search_wms_picking_status` | Read-only | [Warehouse](/tools/warehouse#search-wms-picking-status) |
+| `search_wms_receipts` | Read-only | [Warehouse](/tools/warehouse#search-wms-receipts) |
+| `get_packaging_rules` | Read-only | [Packaging](/tools/packaging#get-packaging-rules) |
+
+Nine tools are read-only and three are write tools. Your AI client asks you to confirm before calling any write tool.
