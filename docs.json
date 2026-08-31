@@ -60,6 +60,8 @@
           "tools/tracking",
           "tools/quoting",
           "tools/shipping",
+          "tools/warehouse",
+          "tools/packaging",
           "tools/orders",
           "tools/addresses"
         ]

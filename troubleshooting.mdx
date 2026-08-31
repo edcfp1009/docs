@@ -53,9 +53,18 @@ Check the shipment in the FreightPOP web app, and contact the carrier directly i
 
 Occasionally a tool call fails with a timeout, usually because a downstream carrier or system was slow to respond.
 
-- If the error response includes **`retryable: true`**, the call is safe to try again. Ask the AI client to retry the same request.
-- If it says **`retryable: false`**, wait a minute and try again, or use the FreightPOP web app to complete the action.
+- The error comes back as a plain text message, for example: _"FreightPop API error (503): the FreightPop service is temporarily unavailable. Please retry shortly."_ There's no separate `retryable` flag on the response; the message itself tells you whether retrying is worth it.
+- If the message suggests retrying, ask the AI client to try the same request again.
+- If it doesn't, or the same tool keeps timing out, wait a minute and try again, or use the FreightPOP web app to complete the action.
 - For repeated timeouts on the same tool, [contact support](/support).
+
+## I'm being rate limited
+
+The MCP Server limits each user to **10 tool calls per 60 seconds**. If you cross that limit, the tool returns:
+
+> _"Rate limit exceeded. Please slow down and try again shortly."_
+
+This shows up most often during multi-step workflows, for example quoting several lanes back to back. Wait a few seconds and retry; the limit resets on a rolling 60-second window.
 
 ## Something else
 

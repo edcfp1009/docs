@@ -60,13 +60,13 @@ For FreightPOP's full data practices, including collection, retention, and third
 
 - Ask narrow questions. "What's the status of shipment X" returns far less than "list everything from the last month."
 - Review the confirmation prompt before approving a write tool. It shows exactly what will be sent.
-- Turn off individual tools in your AI client's connector settings if you only want a subset available.
+- Some AI clients let you turn off individual tools in the connector settings if you only want a subset available. This depends on the client, so check its connector or MCP settings to see if it's supported.
 
 ## Revoking access
 
 You can disconnect the FreightPOP MCP Server at any time:
 
-- **In your AI client:** remove the FreightPOP connector from your client's settings.
-- **In FreightPOP:** contact [support](/support) to revoke active tokens for your account.
+- **In your AI client:** remove the FreightPOP connector from your client's settings. This stops your AI client from calling FreightPOP tools going forward, but any token it already holds stays valid on FreightPOP's side until it naturally expires.
+- **In FreightPOP:** contact [support](/support) to revoke your active tokens immediately. This is the only way to guarantee a token stops working right away.
 
-Once disconnected, all outstanding tokens are invalidated and the AI client can no longer call FreightPOP tools until you reconnect.
+If you need to be certain access is cut off immediately, for example after losing a device, go through support rather than relying on the client-side disconnect alone.
