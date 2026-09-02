@@ -67,13 +67,6 @@
         ]
       },
       {
-        "group": "Concepts",
-        "icon": "layer-group",
-        "pages": [
-          "skills"
-        ]
-      },
-      {
         "group": "Reference",
         "icon": "book",
         "pages": [
