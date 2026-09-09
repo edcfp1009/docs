@@ -1,26 +1,37 @@
 ---
-title: "MCP Tools vs. Skills"
-description: "What the FreightPOP MCP Server gives you today, and what Skills would add."
+title: "Skills & Workflows"
+description: "How Skills and Workflows will make the FreightPOP MCP Server easier to onboard and use, day one."
 ---
 
 <Note>
-  Skills for the FreightPOP MCP Server are not available yet. This page explains the concept so it's easy to understand once they ship. Everything else in these docs, [tools](/tools/overview), [authentication](/authentication), [client setup](/clients/claude-desktop), works today.
+  Skills and Workflows for the FreightPOP MCP Server are in development. This page describes the model we're building toward. Everything else in these docs — [tools](/tools/overview), [authentication](/authentication), [client setup](/clients/claude-desktop) — works today.
 </Note>
 
-## The difference
+## Three layers, not one
 
-**MCP tools** are the individual actions your AI client can call: tracking, quoting, booking, importing. They're documented in [Available Tools](/tools/overview). Connecting the MCP Server gives your AI client access to all of them.
+The MCP Server today gives your AI client **tools**: individual actions like tracking, quoting, booking, and importing, documented in [Available Tools](/tools/overview). Tools answer "what can be called." On their own, a new user, or a new AI client, still has to work out FreightPOP's conventions through trial and error.
 
-**Skills** are a layer on top. Instead of the AI client figuring out on its own which tools to call and in what order for a given task, a skill gives it a pre-built playbook, the sequence FreightPOP recommends for that specific job. Tools answer "what can be called." Skills answer "in what order, and with what checks, for this task."
+Two more layers close that gap:
 
-## Why it matters
+**Skills** are FreightPOP know-how packaged as instructions, not new tools. A skill teaches the AI client how to use the tools it already has: which fields matter for LTL vs. parcel, when to validate an address before quoting, how to read a rate response. Skills answer "how a FreightPOP expert would do this."
 
-Without a skill, asking your AI client to _"book the cheapest option to Chicago"_ still works. It calls `get_rates`, picks the lowest number, and calls `create_shipment`. But it's improvising that sequence itself, so it might skip a step you'd want it to take, like validating the destination address first.
+**Workflows** are ready-made, multi-step recipes for a specific job, end to end. Instead of asking the AI client to improvise a sequence of tool calls, a workflow chains the right steps in the right order and pauses for confirmation before anything that changes data. Workflows answer "do this whole job for me."
 
-A skill would encode FreightPOP's own recommended sequence. For example: validate the address, get rates, filter by transit time if one was mentioned, confirm with you, then book. The AI client follows that sequence instead of guessing one.
+## Why this matters for onboarding
 
-## What's planned
+- **Faster first success.** A Skill can bundle the MCP connector together with FreightPOP's conventions in a single install, so a new client's first session already knows how FreightPOP works instead of relearning it prompt by prompt.
+- **Fewer support tickets.** A Workflow encodes the checks support already tells people to run (validate before booking, confirm before charging), so mistakes get caught before they become a ticket.
+- **Consistency across clients.** The same Skill and Workflow definitions work whether your team is in Claude, ChatGPT, or another MCP-compatible client.
 
-The tools documented in [Available Tools](/tools/overview) already cover tracking, quoting, shipping, orders, address validation, warehouse lookups, and packaging. Skills would package the recommended workflows across those tools, for example a booking skill that chains address validation, packaging, rate comparison, confirmation, and booking automatically.
+## What we're building toward
 
-Check back here for updates, or [contact support](/support) if you'd like to be notified when skills ship.
+- **A FreightPOP plugin for Claude**, bundling the MCP connector with onboarding Skills, so adding FreightPOP also teaches your AI client FreightPOP's conventions in one step.
+- **A knowledge pack** for clients without plugin support (ChatGPT, Cursor, and others), added as project or custom-GPT context alongside the connector.
+- **Starter Workflows** for the highest-volume jobs teams already do by hand, for example:
+  - **Book the cheapest compliant rate:** validate address → get rates → filter by transit time and carrier rules → confirm → book.
+  - **Track and flag exceptions:** pull tracking on open shipments → flag anything past its expected delivery window → draft a carrier follow-up.
+  - **Import and reconcile an order:** import the order → validate packaging → confirm against the order's ship-by date.
+
+## Get notified
+
+Check back here for updates, or [contact support](/support) if you'd like to be notified when Skills and Workflows ship.
