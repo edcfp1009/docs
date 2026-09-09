@@ -1,36 +1,44 @@
 ---
 title: "Claude.ai (Web)"
-description: "Connect FreightPOP to Claude.ai via Claude Connectors."
+description: "Connect FreightPOP to Claude.ai from the Claude connector directory."
 ---
 
-Set up the FreightPOP MCP Server as a connector in the web version of Claude at [claude.ai](https://claude.ai).
+FreightPOP is listed in the Claude connector directory, so adding it takes one click. No URL to copy, no configuration.
 
 ## Prerequisites
 
-- A Claude.ai account with Connectors enabled
+- A Claude.ai account on a paid plan (Pro, Max, Team, or Enterprise)
 - An active FreightPOP account
 - MCP access enabled for your user (ask your FreightPOP admin to turn on **AI Accessibility** for you and your company)
 
 ## Setup
 
 <Steps>
-  <Step title="Open Claude Connectors">
-    Go to [claude.ai](https://claude.ai) and open **Settings → Connectors** (or visit the Connectors page directly from your profile menu).
-  </Step>
-  <Step title="Add the FreightPOP connector">
-    Click **Add connector** and paste the FreightPOP connector URL:
+  <Step title="Open the FreightPOP listing">
+    <a href="https://claude.ai/directory/freightpopmcp" style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "10px 20px", borderRadius: "8px", background: "#16A34A", color: "#FFFFFF", fontWeight: 600, fontSize: "15px", textDecoration: "none" }}>
+  Add FreightPOP to Claude
+</a>
 
-    ```text
-    https://tms-mcp.freightpop.com/mcp
-    ```
+    Or find it yourself: in Claude.ai, open **Settings → Connectors**, browse the directory, and search for **FreightPOP**.
+  </Step>
+  <Step title="Click Connect">
+    Click **Connect** on the FreightPOP listing.
   </Step>
   <Step title="Sign in to FreightPOP">
-    A popup window opens to the FreightPOP login page. Sign in with your normal credentials and approve the requested permissions. The popup closes automatically when done.
+    A popup opens to the FreightPOP login page. Sign in with your normal credentials and approve the requested permissions. The popup closes automatically when done.
   </Step>
   <Step title="Verify">
-    The FreightPOP connector appears in your connector list as **Connected**. Try a test prompt from [Getting Started](/getting-started).
+    FreightPOP appears in your connector list as **Connected**. Try a test prompt from [Getting Started](/getting-started).
   </Step>
 </Steps>
+
+## Adding it manually instead
+
+If you need to point Claude at the server directly rather than use the directory listing, add it as a custom connector with this URL:
+
+```text
+https://tms-mcp.freightpop.com/mcp
+```
 
 ## Troubleshooting
 
