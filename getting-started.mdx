@@ -33,15 +33,25 @@ The FreightPOP MCP Server uses **OAuth 2.0** — the same secure login flow bank
 
 Open a new chat in your AI client and try:
 
-> **"Which carriers do we have set up in FreightPOP?"**
+> **"How many LTL carriers do we have set up in FreightPOP?"**
 
-A successful response lists the carriers configured on your account. This is the simplest possible check: it is read-only, needs no input from you, and confirms both the connection and your permissions in one step.
+A successful answer confirms the connection and your permissions in one step. Ask for a count or a single category rather than the full list, since a mature account can have dozens of carrier accounts across parcel, LTL, truckload, air, and ocean.
 
 If you see an authentication error or nothing happens, jump to [Troubleshooting](/troubleshooting).
 
-Once that works, try a real lookup:
+## Your first real lookup
 
-> **"Track shipment 1234567890 in FreightPOP."**
+Grab a tracking number, order number, or shipment ID from your own FreightPOP account, then ask:
+
+> **"Where is order 82520261?"**
+
+Substitute your own number. Tracking numbers look like `FRTPOP-2200807732`, shipment IDs are plain digits, and order numbers are whatever your system uses. You do not need to say which kind it is.
+
+Once tracking works, try a quote:
+
+> **"Quote 2 pallets, 400 lbs each, 48x40x48 inches, from Lake Forest, CA to Anaheim, CA."**
+
+Give the pallet count, weight, and dimensions. Dimensions matter for anything larger than a parcel, and FreightPOP works out the freight classification for you, so there is no need to supply a freight class.
 
 ## Next steps
 
