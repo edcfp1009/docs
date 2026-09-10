@@ -15,17 +15,19 @@ Ask your AI client things like:
 
 <CardGroup cols={1}>
   <Card title="Track a shipment" icon="location-dot">
-    _"Track shipment 1234567890 in FreightPOP."_
+    _"Where is order 82520261?"_
+  </Card>
+
+  <Card title="Pull up a shipment record" icon="file-lines">
+    _"Show me the shipment for order 82520261, including the BOL."_
   </Card>
 
   <Card title="Get rate quotes" icon="dollar-sign">
-    _"Get me rate quotes from Lake Forest, CA to Dallas, TX, 500 lbs, class 70."_
-  </Card>
-
-  <Card title="Import an order" icon="file-plus">
-    _"Import order SO-1042 into FreightPOP, shipping from our LA warehouse to Dallas."_
+    _"Quote 2 pallets, 400 lbs each, 48x40x48 inches, from Lake Forest, CA to Anaheim, CA."_
   </Card>
 </CardGroup>
+
+Use a real tracking number, order number, or shipment ID from your own FreightPOP account. For quotes, give the pallet count, weight, and dimensions; FreightPOP works out the freight classification for you.
 
 See [Available Tools](/tools/overview) for the full list of what the AI client can do on your behalf.
 
