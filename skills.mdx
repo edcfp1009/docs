@@ -1,37 +1,305 @@
 ---
 title: "Skills & Workflows"
-description: "How Skills and Workflows will make the FreightPOP MCP Server easier to onboard and use, day one."
+description: "Ready-made Skills that teach your AI client how to use the FreightPOP MCP Server like an experienced shipper."
 ---
 
 <Note>
-  Skills and Workflows for the FreightPOP MCP Server are in development. This page describes the model we're building toward. Everything else in these docs — [tools](/tools/overview), [authentication](/authentication), [client setup](/clients/claude-desktop) — works today.
+  Two Skills are available now: **Quote and Book** and **Track and Flag Exceptions**. The third starter workflow, **Import and Reconcile an Order**, is still in development.
 </Note>
 
-## Three layers, not one
+## What a Skill is
 
-The MCP Server today gives your AI client **tools**: individual actions like tracking, quoting, booking, and importing, documented in [Available Tools](/tools/overview). Tools answer "what can be called." On their own, a new user, or a new AI client, still has to work out FreightPOP's conventions through trial and error.
+The MCP Server gives your AI client **tools**: individual actions like tracking, quoting, and booking, documented in [Available Tools](/tools/overview). Tools answer "what can be called." They don't tell the AI client what order to call them in, what to check first, or when to stop and ask you.
 
-Two more layers close that gap:
+A **Skill** is a set of instructions that fills that gap. It teaches the AI client how a FreightPOP expert would do a job: validate addresses before quoting, never guess weights or freight class, show the best three rates instead of all of them, and always confirm before booking anything.
 
-**Skills** are FreightPOP know-how packaged as instructions, not new tools. A skill teaches the AI client how to use the tools it already has: which fields matter for LTL vs. parcel, when to validate an address before quoting, how to read a rate response. Skills answer "how a FreightPOP expert would do this."
+You don't call a Skill by name. Once it's installed, just ask in plain language ("how much to send 3 pallets to Dallas by Friday?") and your AI client uses the Skill automatically when it fits.
 
-**Workflows** are ready-made, multi-step recipes for a specific job, end to end. Instead of asking the AI client to improvise a sequence of tool calls, a workflow chains the right steps in the right order and pauses for confirmation before anything that changes data. Workflows answer "do this whole job for me."
+## Available Skills
 
-## Why this matters for onboarding
+<CardGroup cols={2}>
+  <Card title="Quote and Book" icon="truck">
+    Validate addresses, get rates, filter by delivery deadline and carrier, recommend the best option, and book only after you confirm.
+  </Card>
 
-- **Faster first success.** A Skill can bundle the MCP connector together with FreightPOP's conventions in a single install, so a new client's first session already knows how FreightPOP works instead of relearning it prompt by prompt.
-- **Fewer support tickets.** A Workflow encodes the checks support already tells people to run (validate before booking, confirm before charging), so mistakes get caught before they become a ticket.
-- **Consistency across clients.** The same Skill and Workflow definitions work whether your team is in Claude, ChatGPT, or another MCP-compatible client.
+  <Card title="Track and Flag Exceptions" icon="location-dot">
+    Check one or many shipments, sort them into delivered, on track, or needs attention, and draft a carrier follow-up for anything late, stuck, or not picked up.
+  </Card>
+</CardGroup>
 
-## What we're building toward
+### Quote and Book
 
-- **A FreightPOP plugin for Claude**, bundling the MCP connector with onboarding Skills, so adding FreightPOP also teaches your AI client FreightPOP's conventions in one step.
-- **A knowledge pack** for clients without plugin support (ChatGPT, Cursor, and others), added as project or custom-GPT context alongside the connector.
-- **Starter Workflows** for the highest-volume jobs teams already do by hand, for example:
-  - **Book the cheapest compliant rate:** validate address → get rates → filter by transit time and carrier rules → confirm → book.
-  - **Track and flag exceptions:** pull tracking on open shipments → flag anything past its expected delivery window → draft a carrier follow-up.
-  - **Import and reconcile an order:** import the order → validate packaging → confirm against the order's ship-by date.
+**Use it when** you want to ship something, compare rates, or find the cheapest option that still makes a deadline.
 
-## Get notified
+**What it does:**
 
-Check back here for updates, or [contact support](/support) if you'd like to be notified when Skills and Workflows ship.
+1. Asks for anything essential that's missing (addresses, weight, quantity, ship date) in one message. It won't guess weights, dimensions, or freight class.
+2. Validates both addresses.
+3. Calculates packaging if you give it products instead of packed pieces.
+4. Gets rates, drops anything that misses your delivery date, and shows the top three with a recommendation.
+5. Shows a booking summary and waits for your yes before creating the shipment.
+
+**Example prompts:**
+
+- "How much to send one 500 lb box from Lake Forest to San Jose? Ships 10/9, needs to arrive by 10/15."
+- "Get me the cheapest LTL rate for 2 pallets to Dallas, but not XPO."
+
+**Tools it uses:** `freightpop_validate_address`, `get_packaging_rules`, `get_rates`, `get_carriers`, `freightpop_create_shipment` (write, requires confirmation).
+
+### Track and Flag Exceptions
+
+**Use it when** you want to know where a shipment is, or check a batch of shipments for problems.
+
+**What it does:**
+
+1. Figures out what kind of number you gave it (tracking, PRO, shipment ID, or order number).
+2. Pulls tracking in batches of up to 50.
+3. Sorts every shipment into one bucket: Delivered, Not shipped yet, Not picked up, On track, Late, Stuck, Exception, or No data.
+4. Leads with the problems in a short table.
+5. Offers to draft a follow-up email to the carrier. It drafts only; you send it.
+
+**Example prompts:**
+
+- "Where is PRO FRTPOP-2200790598?"
+- "Check everything that shipped last week and tell me what's late."
+
+**Tools it uses:** `global_search`, `get_tracking`, `freightpop_get_shipment_details`, `freightpop_get_orders`. All read-only.
+
+## Install a Skill in Claude
+
+You need the [FreightPOP connector](/clients/claude-desktop) connected first. The Skill tells Claude how to use the connector's tools; it doesn't replace them.
+
+<Steps>
+  <Step title="Create the Skill folder">
+    Create a folder named exactly as the Skill (`freightpop-quote-and-book` or `freightpop-track-exceptions`).
+  </Step>
+  <Step title="Add SKILL.md">
+    Inside the folder, create a file named `SKILL.md` and paste in the Skill's content from the sections below.
+  </Step>
+  <Step title="Zip the folder">
+    Compress the folder into a `.zip` file.
+  </Step>
+  <Step title="Upload to Claude">
+    In Claude, go to **Settings > Capabilities**, find **Skills**, and upload the `.zip` file. Make sure the Skill is turned on.
+  </Step>
+</Steps>
+
+## Skill files
+
+<AccordionGroup>
+  <Accordion title="freightpop-quote-and-book / SKILL.md">
+    ````markdown
+    ---
+    name: freightpop-quote-and-book
+    description: Quote and book a freight shipment in FreightPOP the way an experienced shipper would, using the FreightPOP MCP connector. Use this skill whenever the user wants to ship something, get a freight quote, compare carrier rates, find the cheapest or fastest option, or book a shipment, even if they only say things like "how much to send 3 pallets to Dallas" or "get this out the door by Friday". Covers address validation, packaging, rating, filtering by transit time and carrier, and confirmed booking.
+    ---
+    
+    # FreightPOP: Quote and Book
+    
+    This skill walks through quoting and booking a shipment with the FreightPOP MCP tools. The goal is a booked shipment at the best rate that actually meets the user's requirements, with no surprises: nothing gets booked without the user saying yes.
+    
+    ## Tools used
+    
+    | Step | Tool | Changes data? |
+    | --- | --- | --- |
+    | Validate addresses | `freightpop_validate_address` | No |
+    | Build packaging (optional) | `get_packaging_rules` | No |
+    | Get rates | `get_rates` | No |
+    | Check carriers (optional) | `get_carriers` | No |
+    | Book | `freightpop_create_shipment` | **Yes** |
+    
+    ## Step 1: Gather what you need
+    
+    Before calling anything, make sure you have:
+    
+    - **Origin and destination addresses**: street, city, state, ZIP, country.
+    - **Items**: weight and quantity at minimum. For LTL, also dimensions (L x W x H) and freight class if the user knows it. For parcel, dimensions matter for dimensional weight.
+    - **Ship date**: default to the next business day if the user doesn't say.
+    - **Requirements**: required delivery date, carriers to avoid or prefer, hazmat, non-stackable freight.
+    
+    Ask for missing essentials in a single short message instead of one question at a time. Do not guess weights, dimensions, or freight class. A wrong freight class is one of the most common causes of re-bills and accessorial charges later, so if the user doesn't know it, say you'll rate without it and that the carrier may reclass.
+    
+    ## Step 2: Validate both addresses
+    
+    Call `freightpop_validate_address` for the shipper and the consignee before rating.
+    
+    - If `SuggestedAddress` contains one or more addresses, show the user the suggestion and ask which to use. Use the one they pick.
+    - If `SuggestedAddress` is empty, there's no correction to make. Continue with the address as given, but don't tell the user it was "verified" or "confirmed valid." Say "no corrections suggested."
+    - If the call returns an error, stop and ask the user to double-check the address. Rating a bad address wastes time and booking one causes failed pickups or deliveries.
+    
+    When passing addresses to later tools, always use the structured object (`Street`, `City`, `State`, `Zip`, `Country`), never a single string.
+    
+    ## Step 3: Build packaging (only if needed)
+    
+    If the user gives you products and quantities rather than finished pallets or boxes (for example "40 units of SKU A-100"), call `get_packaging_rules` to calculate the packages. Show the user the result in plain terms (for example "2 pallets, 48x40x52, 1,150 lb total") before rating.
+    
+    If the user already gives you packed pieces with weights and dimensions, skip this step.
+    
+    ## Step 4: Get rates
+    
+    Call `get_rates` with the validated addresses, items, and ship date. Pass `carrier_ids` only if the user asked for specific carriers.
+    
+    ## Step 5: Filter and recommend
+    
+    Rate results can be long (dozens of rates plus a count of carriers that declined). Work through them yourself and show the user only the short list below. Don't paste the full result.
+    
+    **Price to use:** use `MarkedUpRateTotal`. That's the customer's price. Don't show `BaseRate` or `BaseRateTotal` to the user.
+    
+    **Delivery date to use:** don't trust the `DeliveryDate` field. It can be calculated from today instead of from the ship date. Calculate the estimated delivery yourself: start from the ship date and add `DeliveryDays` business days (skip Saturdays and Sundays). If the user didn't give a ship date, use the next business day as the start.
+    
+    Then apply the user's requirements:
+    
+    1. Drop any rate whose calculated delivery date is after the required delivery date.
+    2. Drop carriers the user said to avoid.
+    3. Sort what's left by `MarkedUpRateTotal`, lowest first.
+    
+    Present the top 3 options in a short table: carrier, service, total cost, transit days, estimated delivery date. Mark your recommendation (usually the cheapest that meets the deadline) and say in one line why. If a slightly more expensive option is meaningfully faster or more reliable, mention it.
+    
+    If nothing meets the requirements, say so plainly and show the closest options instead of silently relaxing the requirement.
+    
+    Keep the `quote_id` and `rate_id` for each option. You'll need them to book.
+    
+    ## Step 6: Confirm, then book
+    
+    Booking creates a real shipment and can incur real charges. Before calling `freightpop_create_shipment`, show a confirmation summary and wait for an explicit yes:
+    
+    ```
+    Ready to book:
+    - Carrier / service: [carrier] [service]
+    - Cost: $[amount]
+    - Pickup: [ship date] from [origin city, state]
+    - Delivery: [est. date] to [destination city, state]
+    - Freight: [pieces, weight]
+    Book it?
+    ```
+    
+    On yes, call `freightpop_create_shipment` with `mode: "with_quote"`, the chosen `quote_id` and `rate_id`, and the same addresses. Add PO or reference numbers the user mentioned to `reference1`, `reference2`, and so on.
+    
+    If the user asks for a label, pass `zpl_label` in the format they need.
+    
+    ## Step 7: Report back
+    
+    Tell the user the shipment ID, carrier, PRO or tracking number if returned, and any documents (BOL, label). Keep it to a few lines.
+    
+    ## Things to avoid
+    
+    - Booking without an explicit confirmation, even if the user said "just book the cheapest" earlier. Show the summary first.
+    - Using `mode: "without_quote"` unless the user specifically wants to skip rating and ship with a known carrier.
+    - Re-rating on every small follow-up question. Reuse the rates you already have unless an input changed.
+    ````
+  </Accordion>
+
+  <Accordion title="freightpop-track-exceptions / SKILL.md">
+    ````markdown
+    ---
+    name: freightpop-track-exceptions
+    description: Check the status of FreightPOP shipments, flag anything late or stuck, and draft follow-ups to carriers, using the FreightPOP MCP connector. Use this skill whenever the user asks where a shipment is, wants a status check on one or many shipments, asks what's late, running behind, or has exceptions, or wants to chase a carrier, even if they just paste a PRO, tracking number, or order number and say "where is this?"
+    ---
+    
+    # FreightPOP: Track and Flag Exceptions
+    
+    This skill turns a pile of tracking data into a short answer: what's fine, what's late or stuck, and what to do about it. The value is in the triage, not in dumping raw tracking events on the user.
+    
+    ## Tools used
+    
+    | Step | Tool | Changes data? |
+    | --- | --- | --- |
+    | Identify an unknown number | `global_search` | No |
+    | Get tracking | `get_tracking` | No |
+    | Get full shipment details | `freightpop_get_shipment_details` | No |
+    
+    All tools in this skill are read-only.
+    
+    ## Step 1: Figure out which shipments to check
+    
+    The user will give you one of these:
+    
+    - **Specific numbers** (shipment IDs, tracking or PRO numbers, order numbers). If you don't know what kind of number it is, call `global_search` first. It tells you what the value matched and the other IDs the same record carries.
+    - **A date range** ("everything that shipped last week"). Call `freightpop_get_shipment_details` with `type: 5` (Date) to pull those shipments.
+    
+    If the user says "all my open shipments" with no numbers or dates, ask for a date range. Don't pull an unbounded list.
+    
+    ## Step 2: Pull tracking
+    
+    Call `get_tracking` with the right `transaction_type`:
+    
+    - `1` = Shipment ID
+    - `2` = Tracking number (including PRO)
+    - `3` = Order number
+    
+    You can pass up to 50 numbers per call. Batch them instead of calling once per shipment.
+    
+    **If an order number lookup errors out:** tracking by order number (and `freightpop_get_shipment_details` with `type: 4`) can return an error like "response was not in the expected format" when the order hasn't shipped yet. When that happens, call `freightpop_get_orders` with the order number:
+    
+    - `IsShipped: false`: the order exists but hasn't shipped. Report it as **Not shipped yet**, not as an error.
+    - Listed under `NotFound`: the order number doesn't exist. Tell the user and ask them to double-check it.
+    - `IsShipped: true`: it shipped, so the error is a real problem. Tell the user tracking couldn't be pulled right now and offer to retry.
+    
+    If you need the expected delivery date, carrier, or addresses and tracking doesn't include them, call `freightpop_get_shipment_details` for those shipments.
+    
+    ## Step 3: Classify each shipment
+    
+    Put every shipment in one bucket:
+    
+    - **Delivered**: delivered, with the date.
+    - **Not shipped yet**: an order that exists but has no shipment yet (see the fallback in Step 2).
+    - **Not picked up**: status is still Booked (or similar) with no pickup date, and it was booked or scheduled to ship 2+ business days ago. This is one of the most important problems to catch, because nothing downstream moves until pickup happens. Say how long it's been waiting.
+    - **On track**: moving, and the expected delivery date hasn't passed.
+    - **Late**: expected delivery date has passed and it's not delivered.
+    - **Stuck**: no new tracking event in 2+ business days while in transit.
+    - **Exception**: the carrier reported an exception (refused, damaged, address issue, missed pickup, held at terminal, and so on).
+    - **No data**: tracking returned nothing. Say so; don't assume it's fine.
+    
+    Base "late" on the expected or required delivery date from the shipment, not on your own guess of normal transit time. If there's no expected date, say that instead of labeling it late.
+    
+    ## Step 4: Report
+    
+    Lead with the problems. Use this shape:
+    
+    ```
+    [N] shipments checked: [x] delivered, [y] on track, [z] need attention.
+    
+    Needs attention:
+    | Shipment | Carrier | Status | Issue | Last update |
+    ...
+    
+    All good: [short list or "the rest are delivered or on track"]
+    ```
+    
+    For a single shipment, skip the table and answer in two or three sentences: where it is, when it's expected, and whether anything looks wrong.
+    
+    ## Step 5: Offer a carrier follow-up
+    
+    For late, stuck, or exception shipments, offer to draft a follow-up to the carrier. Keep it short and specific:
+    
+    ```
+    Subject: Status request, PRO [number]
+    
+    Hi [Carrier] team,
+    
+    PRO [number] (shipment [ID]) picked up [date] from [origin] to [destination]. Expected delivery was [date] and the last update was [event] on [date].
+    
+    Can you confirm current location and a new delivery ETA?
+    
+    Thanks,
+    [User name]
+    ```
+    
+    Draft it; don't claim it was sent. The user sends it.
+    
+    ## Things to avoid
+    
+    - Pasting the full tracking history for every shipment. Summarize.
+    - Calling a shipment late without an expected date to compare against.
+    - Treating "no tracking data" as "on track."
+    ````
+  </Accordion>
+</AccordionGroup>
+
+## Coming next
+
+- **Import and Reconcile an Order:** import an order, check for duplicates, validate packaging, and confirm against the ship-by date.
+- **A FreightPOP plugin for Claude**, bundling the connector and these Skills in one install.
+- **A knowledge pack** for clients without Skill support (ChatGPT, Cursor, and others).
+
+Questions or ideas for a Skill? [Contact support](/support).
