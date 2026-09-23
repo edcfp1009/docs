@@ -32,7 +32,8 @@
         "group": "Use Cases",
         "icon": "user-group",
         "pages": [
-          "use-cases"
+          "use-cases",
+          "skills"
         ]
       },
       {

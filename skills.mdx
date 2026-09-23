@@ -44,8 +44,6 @@ You don't call a Skill by name. Once it's installed, just ask in plain language 
 - "How much to send one 500 lb box from Lake Forest to San Jose? Ships 10/9, needs to arrive by 10/15."
 - "Get me the cheapest LTL rate for 2 pallets to Dallas, but not XPO."
 
-**Tools it uses:** `freightpop_validate_address`, `get_packaging_rules`, `get_rates`, `get_carriers`, `freightpop_create_shipment` (write, requires confirmation).
-
 ### Track and Flag Exceptions
 
 **Use it when** you want to know where a shipment is, or check a batch of shipments for problems.
@@ -62,8 +60,6 @@ You don't call a Skill by name. Once it's installed, just ask in plain language 
 
 - "Where is PRO FRTPOP-2200790598?"
 - "Check everything that shipped last week and tell me what's late."
-
-**Tools it uses:** `global_search`, `get_tracking`, `freightpop_get_shipment_details`, `freightpop_get_orders`. All read-only.
 
 ## Install a Skill in Claude
 
@@ -295,11 +291,5 @@ You need the [FreightPOP connector](/clients/claude-desktop) connected first. Th
     ````
   </Accordion>
 </AccordionGroup>
-
-## Coming next
-
-- **Import and Reconcile an Order:** import an order, check for duplicates, validate packaging, and confirm against the ship-by date.
-- **A FreightPOP plugin for Claude**, bundling the connector and these Skills in one install.
-- **A knowledge pack** for clients without Skill support (ChatGPT, Cursor, and others).
 
 Questions or ideas for a Skill? [Contact support](/support).
